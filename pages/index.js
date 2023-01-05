@@ -1,36 +1,34 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import supabase from '../config/supabaseClient.js'
-import { useState, useEffect } from 'react'
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
+import supabase from '../config/supabaseClient.js';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
-  const [fetchError, setFetchError] = useState(null)
-  const [info, setInfo] = useState(null)
-
+  const [fetchError, setFetchError] = useState(null);
+  const [questions, setQuestions] = useState(null);
 
   useEffect(() => {
-    const fetchInfo = async () => {
-      const {question, error} = await supabase
-      .from (' questions')
-      .select('question')
+    const fetchQuestions = async () => {
+      const { data, error } = await supabase.from('Questions').select();
 
       if (error) {
-        console.log('error hit')
-        setFetchError('Unable to fetch Provider data.')
-        setInfo(null)
-        console.log(fetchError)
+        setFetchError('Unable to fetch data.');
+        setQuestions(null);
+        console.log(fetchError);
       }
-      if (question) {
-        setInfo(question)
-        setFetchError(null)
+      if (data) {
+        setQuestions(data);
+        setFetchError(null);
       }
-    }
+    };
 
-    fetchInfo()
-  }, [])
+    fetchQuestions();
+  }, []);
 
-  console.log('INFO', info)
+  console.log(questions);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -93,5 +91,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 }
