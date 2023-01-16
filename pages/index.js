@@ -108,8 +108,8 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Apex Admin</title>
-        <meta name="description" content="Admin Panel" />
+        <title>Lyf Login</title>
+        <meta name="description" content="Lyf Login" />
         <link rel="icon" href="/apexlogo.png" />
       </Head>
 
